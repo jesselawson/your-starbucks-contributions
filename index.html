@@ -1,0 +1,57 @@
+<html>
+  <head>
+    <title></title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="style.css" />
+    
+  </head>
+
+  <body>
+    <div class="container paper">
+      <div class="row flex-top">
+        <h1 style="text-align:center">Since January 1st, 2022, you have contributed<br/><span id="contribution"></span><br/>to Starbucks' gross revenue.</span></h1>
+
+      </div>
+      <!-- /row -->
+    </div>
+    <!-- /container -->
+    <script src="odometer.js"></script>
+    <script type="text/javascript">
+        var formatter = new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'USD',
+            minimumSignificantDigits: 5,
+            minimumFractionDigits: 5,
+            maximumFractionDigits: 10,
+            maximumSignificantDigits:8
+           });
+        const per33msmoney = 0.00000447049;
+        const startdate = new Date('January 1, 2022 00:00:00 GMT+00:00');
+        const today = new Date();
+        const difference = today.getTime() - startdate.getTime();
+        
+        var contribution_element = document.getElementById('contribution');
+
+        // Set start amount on load
+        var contribution_total = (difference / 33) * per33msmoney;
+        
+        //contribution_element.innerText = contribution_total;
+        
+        
+
+        function onUpdate() {
+            let ele = document.getElementById('contribution');
+            contribution_total += per33msmoney;
+            ele.innerText = formatter.format(contribution_total);
+            
+        }
+
+        
+
+        window.setInterval(function () {
+            onUpdate();
+        }, 33); // 33ms gives us about 30fps
+    </script>
+    
+  </body>
+</html>
